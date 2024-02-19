@@ -27,8 +27,11 @@ app_license = "MIT"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
-# doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
+doctype_js = {"Lead" : "public/js/lead.js", "Supplier" : "public/js/supplier.js",
+"Employee" : "public/js/employee.js", "Customer" : "public/js/customer.js",
+"Opportunity" : "public/js/opportunity.js", "Quotation" : "public/js/quotation.js"}
+doctype_list_js = {"Customer" : "public/js/customer_list.js", "Contact" : "public/js/contact_list.js",
+"Sales Order" : "public/js/sales_order_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
@@ -116,13 +119,37 @@ app_license = "MIT"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+	"Lead": {
+		"after_insert": "iwapp_cmg.events.lead.after_insert",
+    #     "validate": "iwapp_com.events.lead.validate"
+    #     # "on_update": "iwapp_com.events.lead.on_update"
+	# 	# "on_cancel": "method",
+	# 	# "on_trash": "method"
+	},
+    "Contact": {
+        "validate": "iwapp_cmg.events.contact.validate"
+	},
+     "Customer": {
+        "after_insert": "iwapp_cmg.events.customer.after_insert"
+	},
+     "Supplier": {
+        "after_insert": "iwapp_cmg.events.supplier.after_insert"
+	},
+    "Employee": {
+        "after_insert": "iwapp_cmg.events.employee.after_insert",
+        "on_update": "iwapp_cmg.events.employee.on_update_employee"
+	},
+     "Opportunity": {
+        # "validate": "iwapp_com.events.opportunity.validate",
+        "after_insert": "iwapp_cmg.events.opportunity.after_insert",
+        "before_insert": "iwapp_cmg.events.opportunity.before_insert"
+	},
+    "Quotation": {
+        "before_submit": "iwapp_cmg.events.quotation.before_submit",
+        "after_insert": "iwapp_cmg.events.quotation.after_insert"
+	},
+}
 
 # Scheduled Tasks
 # ---------------
@@ -213,3 +240,100 @@ app_license = "MIT"
 # auth_hooks = [
 # 	"iwapp_cmg.auth.validate"
 # ]
+fixtures = [{
+    "dt":"Custom Field",
+    "filters": [
+        ["name", "in", (
+            "Contact-custom_organisation_name",
+            "Contact-custom_mob", "Customer-custom_postal_code",
+            "Customer-custom_country", "Customer-custom_stateprovince",
+            "Customer-custom_county", "Customer-custom_citytown",
+            "Customer-custom_address_line_2", "Customer-custom_section_break_qt6tz","Customer-custom_is_primary_billing_address",
+            "Customer-custom_address_line_1", "Customer-custom_column_break_ubxah","Customer-custom_is_primary_shipping_address",
+            "Customer-custom_contact_created", "Customer-custom_address_created","Customer-custom_is_primary_contact",
+            "custom_designation", "Customer-custom_organisation_name","Customer-custom_is_billing_contact",
+            "Customer-custom_gstin", "Customer-custom_taluk", "Customer-custom_primary_contact_details",
+            "Customer-custom_post_office", "Customer-custom_phone","Customer-custom_section_break_3sqq2",
+            "Customer-custom_mobile_no", "Customer-custom_email","Customer-custom_pincode_details",
+            "Customer-custom_middle_name", "Customer-custom_last_name","Customer-custom_department",
+            "Customer-custom_first_name", "Address-custom_gstin","Customer-custom_column_break_klrpv",
+            "Address-custom_taluk", "Address-custom_post_office", "Address-custom_gst_category",
+            "Supplier-custom_phone", "Supplier-custom_mobile_no","Supplier-custom_is_primary_billing_address",
+            "Supplier-custom_email", "Supplier-custom_organisation_name", "Supplier-custom__is_primary_shipping_address",
+            "Supplier-custom_gstin", "Supplier-custom_post_office", "Supplier-custom_primary_contact_details",
+            "Supplier-custom_taluk", "Supplier-custom_postal_code", "Supplier-custom_column_break_st3pq",
+            "Supplier-custom_column_break_zpehd", "Supplier-custom_citytown", "Supplier-custom_designation",
+            "Supplier-custom_address_line_1", "Supplier-custom_department",
+            "Supplier-custom_salutation", "Supplier-custom_gender", "Supplier-custom__is_primary_contact",
+            "Supplier-custom_last_name", "Supplier-custom_middle_name", "Supplier-custom__is_billing_contact",
+            "Supplier-custom_first_name", "Supplier-custom_section_break_oyobw", "Supplier-custom_section_break_dcx8s",
+            "Supplier-custom_county", "Supplier-custom_stateprovince", "Supplier-custom_pincode_details",
+            "Supplier-custom_designation", "Employee-custom_address_html",
+            "Employee-custom_column_break_q4u31", "Employee-custom_address__contact",
+            "Employee-custom_employee_primary_contact", "Employee-custom_employee_primary_address",
+            "Employee-custom_contact_html", "Employee-custom_postal_office",
+            "Employee-custom_organisation_name", "Employee-custom_county",
+            "Employee-custom_gstin", "Employee-custom_taluk",
+            "Employee-custom_postal_code", "Employee-custom_country",
+            "Employee-custom_stateprovince", "Employee-custom_citytown",
+            "Employee-custom_address_line_2", "Employee-custom_address_line_1",
+            "Employee-custom_phone",
+            "Employee-custom_pincode_details","Employee-custom_same_as_current_address",
+            "Employee-custom_permanent_address_html","Employee-custom_aadhaar_id",
+            "Employee-custom_section_break_h6coe","Employee-custom_permanent_stateprovince",
+            "Employee-custom_permanent_districtcounty", "Employee-custom_permanent_taluk",
+            "Employee-custom_permanent_post_office", "Employee-custom_permanent_citytown",
+            "Employee-custom_permanent_door_building_street", "Employee-custom_permanent_postal_code",
+            "Employee-custom_permanent_country", "Employee-custom_permanent_address",
+            "Employee-custom_current_address", "Employee-custom_permanent_pincode_details",
+            "Employee-custom_address_created",
+            "Opportunity-custom_mobile", "Opportunity-custom_primary_address_details",
+            "Opportunity-custom_first_name", "Opportunity-custom_column_break_hi1ob",
+            "Opportunity-custom_email", "Opportunity-custom_organization_name",
+            "Opportunity-custom_check", "Opportunity-custom_customerlead_found",
+            "Opportunity-custom_middle_name", "Opportunity-custom_section_break_v3xoi",
+            "Opportunity-custom_last_name","Opportunity-custom_department",
+            "Opportunity-custom_zippostal_code", "Opportunity-custom_door_building_street",
+            "Opportunity-custom_column_break_g7qs0", "Opportunity-custom_job_title",
+            "Opportunity-custom_whatsapp", "Opportunity-custom_post_office", "Opportunity-custom_districtcounty",
+            "Opportunity-custom_gender","Opportunity-custom_salutation",
+            "Opportunity-custom_opportunity_created",
+            "Opportunity-custom_pincode_details", "Opportunity-custom_taluk",
+            "Opportunity-custom_opportunity_details",
+            "Opportunity-custom_column_break_qvd4h", "Opportunity-custom_lead_not_found", "Opportunity-custom_dummy_lead",
+            "Lead-custom_door_building_street", "Lead-custom_zippostal_code", "Lead-custom_department",
+            "Lead-custom_post_office", "Lead-custom_districtcounty", "Lead-custom_taluk",
+            "Quotation-custom_section_break_mclho", "Quotation-custom_mobile", "Quotation-custom_first_name",
+            "Quotation-custom_middle_name", "Quotation-custom_last_name", "Quotation-custom_country",
+            "Quotation-custom_zippostal_code", "Quotation-custom_door_building_street", "Quotation-custom_citytown",
+            "Quotation-custom_post_office", "Quotation-custom_taluk", "Quotation-custom_districtcounty",
+            "Quotation-custom_stateprovince", "Quotation-custom_column_break_vdnw8", "Quotation-custom_primary_contact_details",
+            "Quotation-custom_column_break_jiqch", "Quotation-custom_email", "Quotation-custom_gender",
+            "Quotation-custom_company_name", "Quotation-custom_tax_id", "Quotation-custom_department",
+            "Quotation-custom_salutation", "Quotation-custom_designation", "Quotation-custom_opportunity_saved",
+            "Quotation-custom_pincode_details", "Quotation-custom_section_break_bc7sm",
+            "Quotation-custom_gst_category", "Quotation-custom_column_break_mxu4w",
+            "Address-custom_demo"
+            )]
+    ]
+    },
+    {"dt":"Property Setter",
+        "filters": [
+            ["doc_type", "in", (
+                "Lead",
+                "Employee",
+                "Supplier",
+                "Customer",
+                "Opportunity",
+                "Quotation",
+                "Opportunity Item"
+            )]
+        ]
+    }
+    # {
+    #     "dt": "Translation",
+    #     "filters": [
+    #             ["name", "in", ("ec0adfc6e5")]
+    #     ],
+    # }
+]
