@@ -7,7 +7,7 @@ def before_insert(doc, method):
     if doc.custom_customerlead_found == 0:
         lead = frappe.get_doc({
             "doctype":"Lead",
-            "first_name":doc.custom_first_name,
+            "first_name":doc.custom_first_name if doc.custom_first_name else "",
             "middle_name":doc.custom_middle_name,
             "last_name":doc.custom_last_name,
             "mobile_no":doc.custom_mobile,
@@ -78,106 +78,67 @@ def create_dummy_lead():
         }).insert()
         return dummy_create.name
 
-@frappe.whitelist()
-def get_cust_or_lead(email, mobile, organisation, first_name):
-    # put filters to hidden fields in Contact for setting mob no(last10 digits) ang company name(remove suffix)
-    mob_no = frappe.db.get_list('Contact',
-    filters={
-        'custom_mob': ['=', ''],
-        'custom_organisation_name':['=', '']
-    },
-    fields=['company_name', 'mobile_no', 'name'],
-    as_list=False
-    )
-    cleaned_organization_name = remove_suffixes_from_field(organisation)
-    for mob in mob_no:
-        mob_10_digits = mob.get('mobile_no')[-10:]
-        org_name = ""
-        if mob.get('company_name') != None and mob_10_digits:
-            org_name = remove_suffixes_from_field(mob.get('company_name'))
-            frappe.db.set_value("Contact", mob.get('name'), {"custom_mob": mob_10_digits, "custom_organisation_name":org_name}, update_modified=False)
-        # if mob_10_digits and org_name:
-            # frappe.db.set_value("Contact", mob.get('name'), {"custom_mob": mob_10_digits, "custom_organisation_name":org_name}, update_modified=False)
-    last_10_digits = mobile[-10:]
-    opp_organisation_exists = frappe.db.exists("Contact", {"email_id": email, "custom_mob": last_10_digits, "custom_organisation_name":cleaned_organization_name})
-    if opp_organisation_exists:
-        organisation = frappe.db.get_all('Dynamic Link',
-            filters={
-                'parent': opp_organisation_exists
-            },
-            fields=['link_doctype', 'link_name'],
-            as_list=False
-        )
-        if organisation:
-            if len(organisation) > 1:
-                for i in organisation:
-                    if i.get('link_doctype') == "Customer":
-                        # self.party_type = i.get('link_doctype')
-                        # self.party_name = i.get('link_name')
-                        return i.get('link_doctype'), i.get('link_name')
-            if len(organisation) == 1:
-                for i in organisation:
-                    if i.get('link_doctype') == "Customer":
-                        # self.party_type = i.get('link_doctype')
-                        # self.party_name = i.get('link_name')
-                        return i.get('link_doctype'), i.get('link_name')
-                    else:
-                        # self.party_type = i.get('link_doctype')
-                        # self.party_name = i.get('link_name')
-                        return i.get('link_doctype'), i.get('link_name')
-    if not opp_organisation_exists:
-        # self.party_type = ""
-        # self.party_name = ""
-        opp_firstname_exists = frappe.db.exists("Contact", {"email_id": email, "custom_mob": last_10_digits, "first_name":first_name})
-        if opp_firstname_exists:
-            contact = frappe.get_doc("Contact", opp_firstname_exists)
-            # if contact.middle_name == self.middle_name or contact.middle_name == self.last_name:
-            firstname = frappe.db.get_all('Dynamic Link',
-            filters={
-                'parent': opp_firstname_exists
-            },
-            fields=['link_doctype', 'link_name'],
-            as_list=False
-            )
-            if firstname:
-                if len(firstname) > 1:
-                    for i in firstname:
-                        if i.get('link_doctype') == "Customer":
-                            # self.party_type = i.get('link_doctype')
-                            # self.party_name = i.get('link_name')
-                            return i.get('link_doctype'), i.get('link_name')
-                if len(firstname) == 1:
-                    for i in firstname:
-                        if i.get('link_doctype') == "Customer":
-                            # self.party_type = i.get('link_doctype')
-                            # self.party_name = i.get('link_name')
-                            return i.get('link_doctype'), i.get('link_name')
-                        else:
-                            # self.party_type = i.get('link_doctype')
-                            # self.party_name = i.get('link_name')
-                            return i.get('link_doctype'), i.get('link_name')
-            # else:
-            #     firstname = frappe.db.get_all('Dynamic Link',
-            #     filters={
-            #         'parent': opp_firstname_exists
-            #     },
-            #     fields=['link_doctype', 'link_name'],
-            #     as_list=False
-            #     )
-            #     if firstname:
-            #         if len(firstname) > 1:
-            #             for i in firstname:
-            #                 if i.get('link_doctype') == "Customer":
-            #                     self.party_type = i.get('link_doctype')
-            #                     self.party_name = i.get('link_name')
-            #         if len(firstname) == 1:
-            #             for i in firstname:
-            #                 if i.get('link_doctype') == "Customer":
-            #                     self.party_type = i.get('link_doctype')
-            #                     self.party_name = i.get('link_name')
-            #                 else:
-            #                     self.party_type = i.get('link_doctype')
-            #                     self.party_name = i.get('link_name')
+# @frappe.whitelist()
+# def get_cust_or_lead(email, mobile, organisation, first_name):
+#     # put filters to hidden fields in Contact for setting mob no(last10 digits) ang company name(remove suffix)
+#     mob_no = frappe.db.get_list('Contact',
+#     filters={
+#         'custom_mob': ['=', ''],
+#         'custom_organisation_name':['=', '']
+#     },
+#     fields=['company_name', 'mobile_no', 'name'],
+#     as_list=False
+#     )
+#     cleaned_organization_name = remove_suffixes_from_field(organisation)
+#     for mob in mob_no:
+#         mob_10_digits = mob.get('mobile_no')[-10:]
+#         org_name = ""
+#         if mob.get('company_name') != None and mob_10_digits:
+#             org_name = remove_suffixes_from_field(mob.get('company_name'))
+#             frappe.db.set_value("Contact", mob.get('name'), {"custom_mob": mob_10_digits, "custom_organisation_name":org_name}, update_modified=False)
+#     last_10_digits = mobile[-10:]
+#     opp_organisation_exists = frappe.db.exists("Contact", {"email_id": email, "custom_mob": last_10_digits, "custom_organisation_name":cleaned_organization_name})
+#     if opp_organisation_exists:
+#         organisation = frappe.db.get_all('Dynamic Link',
+#             filters={
+#                 'parent': opp_organisation_exists
+#             },
+#             fields=['link_doctype', 'link_name'],
+#             as_list=False
+#         )
+#         if organisation:
+#             if len(organisation) > 1:
+#                 for i in organisation:
+#                     if i.get('link_doctype') == "Customer":
+#                         return i.get('link_doctype'), i.get('link_name')
+#             if len(organisation) == 1:
+#                 for i in organisation:
+#                     if i.get('link_doctype') == "Customer":
+#                         return i.get('link_doctype'), i.get('link_name')
+#                     else:
+#                         return i.get('link_doctype'), i.get('link_name')
+#     if not opp_organisation_exists:
+#         opp_firstname_exists = frappe.db.exists("Contact", {"email_id": email, "custom_mob": last_10_digits, "first_name":first_name})
+#         if opp_firstname_exists:
+#             contact = frappe.get_doc("Contact", opp_firstname_exists)
+#             firstname = frappe.db.get_all('Dynamic Link',
+#             filters={
+#                 'parent': opp_firstname_exists
+#             },
+#             fields=['link_doctype', 'link_name'],
+#             as_list=False
+#             )
+#             if firstname:
+#                 if len(firstname) > 1:
+#                     for i in firstname:
+#                         if i.get('link_doctype') == "Customer":
+#                             return i.get('link_doctype'), i.get('link_name')
+#                 if len(firstname) == 1:
+#                     for i in firstname:
+#                         if i.get('link_doctype') == "Customer":
+#                             return i.get('link_doctype'), i.get('link_name')
+#                         else:
+#                             return i.get('link_doctype'), i.get('link_name')
 
 
 
