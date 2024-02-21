@@ -256,6 +256,7 @@ fixtures = [{
             "Customer-custom_post_office", "Customer-custom_phone","Customer-custom_section_break_3sqq2",
             "Customer-custom_mobile_no", "Customer-custom_email","Customer-custom_pincode_details",
             "Customer-custom_middle_name", "Customer-custom_last_name","Customer-custom_department",
+            "Customer-custom_column_break_xhkka", "Customer-custom_column_break_3gf2c",
             "Customer-custom_first_name", "Address-custom_gstin","Customer-custom_column_break_klrpv",
             "Address-custom_taluk", "Address-custom_post_office", "Address-custom_gst_category",
             "Supplier-custom_phone", "Supplier-custom_mobile_no","Supplier-custom_is_primary_billing_address",
@@ -263,12 +264,12 @@ fixtures = [{
             "Supplier-custom_gstin", "Supplier-custom_post_office", "Supplier-custom_primary_contact_details",
             "Supplier-custom_taluk", "Supplier-custom_postal_code", "Supplier-custom_column_break_st3pq",
             "Supplier-custom_column_break_zpehd", "Supplier-custom_citytown", "Supplier-custom_designation",
-            "Supplier-custom_address_line_1", "Supplier-custom_department",
+            "Supplier-custom_address_line_1", "Supplier-custom_department", "Supplier-custom_column_break_vrzdo",
             "Supplier-custom_salutation", "Supplier-custom_gender", "Supplier-custom__is_primary_contact",
             "Supplier-custom_last_name", "Supplier-custom_middle_name", "Supplier-custom__is_billing_contact",
             "Supplier-custom_first_name", "Supplier-custom_section_break_oyobw", "Supplier-custom_section_break_dcx8s",
             "Supplier-custom_county", "Supplier-custom_stateprovince", "Supplier-custom_pincode_details",
-            "Supplier-custom_designation", "Employee-custom_address_html",
+            "Supplier-custom_designation", "Employee-custom_address_html", "Supplier-custom_column_break_m6sjj",
             "Employee-custom_column_break_q4u31", "Employee-custom_address__contact",
             "Employee-custom_employee_primary_contact", "Employee-custom_employee_primary_address",
             "Employee-custom_contact_html", "Employee-custom_postal_office",
@@ -296,7 +297,7 @@ fixtures = [{
             "Opportunity-custom_zippostal_code", "Opportunity-custom_door_building_street",
             "Opportunity-custom_column_break_g7qs0", "Opportunity-custom_job_title",
             "Opportunity-custom_whatsapp", "Opportunity-custom_post_office", "Opportunity-custom_districtcounty",
-            "Opportunity-custom_gender","Opportunity-custom_salutation",
+            "Opportunity-custom_gender","Opportunity-custom_salutation", "Opportunity-custom_column_break_jah6i",
             "Opportunity-custom_opportunity_created",
             "Opportunity-custom_pincode_details", "Opportunity-custom_taluk",
             "Opportunity-custom_opportunity_details",
@@ -310,9 +311,9 @@ fixtures = [{
             "Quotation-custom_stateprovince", "Quotation-custom_column_break_vdnw8", "Quotation-custom_primary_contact_details",
             "Quotation-custom_column_break_jiqch", "Quotation-custom_email", "Quotation-custom_gender",
             "Quotation-custom_company_name", "Quotation-custom_tax_id", "Quotation-custom_department",
-            "Quotation-custom_salutation", "Quotation-custom_designation", "Quotation-custom_opportunity_saved",
-            "Quotation-custom_pincode_details", "Quotation-custom_section_break_bc7sm",
-            "Quotation-custom_gst_category", "Quotation-custom_column_break_mxu4w",
+            "Quotation-custom_salutation", "Quotation-custom_opportunity_saved", "Quotation-custom_designation",
+            "Quotation-custom_pincode_details", "Quotation-custom_section_break_bc7sm", "Quotation-custom_column_break_9dfhk",
+            "Quotation-custom_gst_category", "Quotation-custom_column_break_mxu4w", "Quotation-custom_column_break_0oiup",
             "Address-custom_demo"
             )]
     ]
@@ -326,7 +327,8 @@ fixtures = [{
                 "Customer",
                 "Opportunity",
                 "Quotation",
-                "Opportunity Item"
+                "Opportunity Item",
+                "Address"
             )]
         ]
     }
