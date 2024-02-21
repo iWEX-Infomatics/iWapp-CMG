@@ -38,9 +38,43 @@ frappe.ui.form.on("Quotation", {
             }
         }
     },
+    custom_check: function (frm) {
+        if (frm.doc.custom_company_name) {
+            frappe.db.get_value('Customer', { "customer_name": frm.doc.custom_company_name }, 'name')
+                .then(r => {
+                    if (r.message.name) {
+                        frappe.db.get_doc('Customer', r.message.name)
+                            .then(doc => {
+                                frm.set_value({ "quotation_to": "Customer", "party_name": r.message.name })
+                            })
+                    }
+                    else {
+                        frappe.db.get_value('Lead', { "company_name": frm.doc.custom_company_name }, 'name')
+                            .then(r => {
+                                if (r.message.name) {
+                                    frm.set_value({ "quotation_to": "Lead", "party_name": r.message.name })
+                                }
+                                else {
+                                    frappe.msgprint("No Lead/Customer found")
+                                    frm.set_value({
+                                        "quotation_to": "", "party_name": "",
+                                        "custom_country": "", "custom_zippostal_code": "",
+                                        "custom_door_building_street": "", "custom_citytown": "",
+                                        "custom_post_office": "", "custom_taluk": "",
+                                        "custom_districtcounty": "", "custom_stateprovince": "",
+                                        "custom_salutation": "", "custom_first_name": "",
+                                        "custom_middle_name": "", "custom_last_name": "",
+                                        "custom_mobile": "", "custom_email": "",
+                                        "custom_designation": "", "custom_department": "",
+                                        "custom_company_name": "", "custom_gender": ""
+                                    })
+                                }
+                            })
+                    }
+                })
+        }
+    },
     party_name: function (frm) {
-        // frm.clear_table("custom_pincode_details")
-        // frm.refresh_fields("custom_pincode_details");
         if (frm.doc.quotation_to == "Lead" && frm.doc.party_name) {
             frappe.db.get_doc('Lead', frm.doc.party_name)
                 .then(doc => {
@@ -69,11 +103,10 @@ frappe.ui.form.on("Quotation", {
                         "custom_middle_name": doc.custom_middle_name, "custom_last_name": doc.custom_last_name,
                         "custom_mobile": doc.custom_mobile_no, "custom_email": doc.custom_email,
                         "custom_designation": doc.custom_designation, "custom_department": doc.custom_department,
-                        "custom_company_name": doc.custom_organisation_name, "custom_gender": doc.gender
+                        "custom_company_name": doc.customer_name, "custom_gender": doc.gender
                     })
                 })
         }
-
     },
     // custom_zippostal_code: function (frm) {
     //     frm.clear_table("custom_pincode_details")

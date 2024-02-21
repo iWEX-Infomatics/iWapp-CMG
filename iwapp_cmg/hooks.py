@@ -258,7 +258,7 @@ fixtures = [{
             "Customer-custom_middle_name", "Customer-custom_last_name","Customer-custom_department",
             "Customer-custom_column_break_xhkka", "Customer-custom_column_break_3gf2c",
             "Customer-custom_first_name", "Address-custom_gstin","Customer-custom_column_break_klrpv",
-            "Address-custom_taluk", "Address-custom_post_office", "Address-custom_gst_category",
+            "Address-custom_taluk", "Address-custom_post_office",
             "Supplier-custom_phone", "Supplier-custom_mobile_no","Supplier-custom_is_primary_billing_address",
             "Supplier-custom_email", "Supplier-custom_organisation_name", "Supplier-custom__is_primary_shipping_address",
             "Supplier-custom_gstin", "Supplier-custom_post_office", "Supplier-custom_primary_contact_details",
@@ -312,9 +312,8 @@ fixtures = [{
             "Quotation-custom_column_break_jiqch", "Quotation-custom_email", "Quotation-custom_gender",
             "Quotation-custom_company_name", "Quotation-custom_tax_id", "Quotation-custom_department",
             "Quotation-custom_salutation", "Quotation-custom_opportunity_saved", "Quotation-custom_designation",
-            "Quotation-custom_pincode_details", "Quotation-custom_section_break_bc7sm", "Quotation-custom_column_break_9dfhk",
-            "Quotation-custom_gst_category", "Quotation-custom_column_break_mxu4w", "Quotation-custom_column_break_0oiup",
-            "Address-custom_demo"
+            "Quotation-custom_pincode_details","Quotation-custom_column_break_9dfhk","Quotation-custom_column_break_0oiup",
+            "Quotation-custom_check"
             )]
     ]
     },
