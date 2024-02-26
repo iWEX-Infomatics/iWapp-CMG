@@ -37,7 +37,8 @@ def before_submit(doc, method):
             'email_id':doc.custom_email,
             'is_primary_address':1,
             'is_shipping_address':1,
-            'custom_gstin':doc.custom_tax_id if doc.custom_tax_id else ""
+            'custom_gstin':doc.custom_tax_id if doc.custom_tax_id else "",
+            'tax_category':doc.tax_category if  doc.tax_category else ""
         })
     else:
         address=frappe.get_doc({
@@ -55,7 +56,7 @@ def before_submit(doc, method):
         'email_id':doc.custom_email,
         'is_primary_address':1,
         'is_shipping_address':1,
-        'custom_gst_category':doc.custom_gst_category,
+        'tax_category':doc.tax_category if  doc.tax_category else "",
         'custom_gstin':doc.custom_tax_id
         })
         address.append('links',

@@ -1,4 +1,37 @@
-// frappe.ui.form.on("Customer",{
+frappe.ui.form.on("Customer", {
+    default_currency: function (frm) {
+        // frm.set_value({ "default_price_list": "", "default_currency": "", "tax_category" : ""})
+        if (frm.doc.customer_type == "Company") {
+            if (frm.doc.default_currency == "TZS") {
+                frm.set_value({ "default_price_list": "Selling TZS", "tax_category": "VAT" })
+            }
+            if (frm.doc.default_currency == "USD") {
+                frm.set_value({ "default_price_list": "Selling USD", "tax_category": "Export" })
+            }
+            if (frm.doc.default_currency == "AED") {
+                frm.set_value({ "default_price_list": "Selling AED", "tax_category": "No VAT" })
+            }
+        }
+        else {
+            if (frm.doc.default_currency == "TZS") {
+                frm.set_value({ "default_price_list": "Selling TZS", "tax_category": "" })
+            }
+            if (frm.doc.default_currency == "USD") {
+                frm.set_value({ "default_price_list": "Selling USD", "tax_category": "" })
+            }
+            if (frm.doc.default_currency == "AED") {
+                frm.set_value({ "default_price_list": "Selling AED", "tax_category": "" })
+            }
+        }
+    },
+    custom_country: function (frm) {
+        frm.set_value({ "default_price_list": "", "default_currency": "", "tax_category" : ""})
+        if (frm.doc.custom_country == "Tanzania") {
+            frm.set_value({ "default_price_list": "Selling TZS", "default_currency": "TZS"})
+        }
+    }
+})
+
 // custom_postal_code: function (frm) {
 //     frm.clear_table("custom_pincode_details")
 //     frm.refresh_fields("custom_pincode_details");
@@ -84,5 +117,3 @@
 //                 }
 //             })
 //     }
-// }
-// })
